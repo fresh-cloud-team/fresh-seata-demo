@@ -1,0 +1,32 @@
+server:
+  port: 7800
+  tomcat.uri-encoding: utf-8
+
+spring:
+  application:
+    name: rm-tcc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.105.51.99:3306/seata_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: root
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: seata-demo
+  service:
+    vgroup-mapping:
+      seata-demo: default
+    disable-global-transaction: false
+  registry:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      application: seata-server
+      server-addr: 127.0.0.1:8848
